@@ -6,44 +6,55 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.cadiapp2.R;
+import com.example.cadiapp2.screen_layouts.InfoFragment;
+import com.example.cadiapp2.screen_layouts.NoticeFragment;
+import com.example.cadiapp2.screen_layouts.TodoFragment;
+import com.example.cadiapp2.screen_layouts.VideoFragment;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
 
-public class ScreenPagerAdapter extends PagerAdapter {
+public class ScreenPagerAdapter extends FragmentStatePagerAdapter {
 
     private Context mContext;
+    private int mPageCount;
 
-    public ScreenPagerAdapter() {
-        super();
-    }
-
-    public ScreenPagerAdapter(Context context) {
-        mContext = context;
+    public ScreenPagerAdapter(FragmentManager fm, int pageCount) {
+        super(fm, pageCount);
+        this.mPageCount = pageCount;
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
-        View view = null;
-        if(mContext != null){
-            LayoutInflater inflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.activity_notice_layout,container,false);
+    public Fragment getItem(int position) {
+        Fragment fragment = null;
+        switch (position) {
+            case 0: {
+                fragment = new NoticeFragment();
+                break;
+            }
+            case 1: {
+                fragment = new TodoFragment();
+                break;
+            }
+            case 2: {
+                fragment = new VideoFragment();
+                break;
+            }
+            case 3: {
+                fragment = new InfoFragment();
+                break;
+            }
+            default:
+                return null;
         }
-        container.addView(view);
-        return view;
-    }
-
-    @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((View) object);
+        return fragment;
     }
 
     @Override
     public int getCount() {
-        return 4;
-    }
-
-    @Override
-    public boolean isViewFromObject(View view, Object object) {
-        return view == (View) object;
+        return mPageCount;
     }
 }

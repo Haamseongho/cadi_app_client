@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.andexert.library.RippleView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rippleView"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:layout_marginBottom="15dp"
+    android:orientation="vertical"
+    app:rv_centered="true"
+    app:rv_rippleDuration="500"
+    app:rv_zoomDuration="200"
+    app:rv_zoomScale="1.05">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cards"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="#cef7f8fa"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="40dp"
+        app:cardPreventCornerOverlap="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/simple_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="일정 추가 제목"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+            <TextView
+                android:id="@+id/simple_contents"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/simple_title"
+                android:layout_margin="8dp"
+                android:hint="예시 :> 오늘 해야할 일 : 21시 한이음 개발 진행할 것"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</com.andexert.library.RippleView>

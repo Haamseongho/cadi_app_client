@@ -16,10 +16,6 @@ import com.google.android.material.tabs.TabLayout;
 public class MainActivity extends AppCompatActivity {
 
     private TabLayout tabs;
-    private Fragment noticeFragment;
-    private Fragment todoFragment;
-    private Fragment videoFragment;
-    private Fragment infoFragment;
     private ViewPager viewPager;
     private ScreenPagerAdapter scPagerAdapter;
 
@@ -29,20 +25,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initViews();
         initTabs();
-        initPaging();
     }
 
 
     private void initViews() {
-        noticeFragment = new NoticeFragment();
-        todoFragment = new TodoFragment();
-        videoFragment = new VideoFragment();
-        infoFragment = new InfoFragment();
         viewPager = (ViewPager) findViewById(R.id.viewPager);
-        scPagerAdapter = new ScreenPagerAdapter(this);
-
-        getSupportFragmentManager().beginTransaction().add(R.id.container, noticeFragment).commit();
-
+        //getSupportFragmentManager().beginTransaction().add(R.id.container, noticeFragment).commit();
     }
 
     private void initTabs() {
@@ -52,26 +40,17 @@ public class MainActivity extends AppCompatActivity {
         tabs.addTab(tabs.newTab().setIcon(R.drawable.ic_slideshow_black_24dp));
         tabs.addTab(tabs.newTab().setIcon(R.drawable.ic_account_box_black_24dp));
 
+        scPagerAdapter = new ScreenPagerAdapter(getSupportFragmentManager(), tabs.getTabCount());
+        // ViewPager 연동으로 화면 넘기기
+        viewPager.setAdapter(scPagerAdapter);
+        // viewPager에 탭 수만큼 연결
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabs));
+
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                Fragment fragment = null;
-                switch (tab.getPosition()) {
-                    case 0:
-                        fragment = noticeFragment;
-                        break;
-                    case 1:
-                        fragment = todoFragment;
-                        break;
-                    case 2:
-                        fragment = videoFragment;
-                        break;
-                    case 3:
-                        fragment = infoFragment;
-                        break;
-                }
-
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
+                viewPager.setCurrentItem(tab.getPosition());
+                // getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
             }
 
             @Override
@@ -84,9 +63,5 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-    }
-
-    private void initPaging() {
-        viewPager.setAdapter(scPagerAdapter);
     }
 }
