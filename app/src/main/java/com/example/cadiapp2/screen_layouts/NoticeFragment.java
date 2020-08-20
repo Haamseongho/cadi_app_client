@@ -44,6 +44,8 @@ public class NoticeFragment extends Fragment {
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(noticeAdapter);
 
+        // 롱클릭 처리
+
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove( RecyclerView recyclerView,  RecyclerView.ViewHolder viewHolder,  RecyclerView.ViewHolder target) {
